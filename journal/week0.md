@@ -4,6 +4,28 @@
 
 ### step 1
 
+- Install AWS CLI using the following steps
+
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+```
+
+```
+unzip awscliv2.zip
+```
+
+```
+sudo ./aws/install
+```
+
+- Command to check aws cli installed version
+
+```
+aws --version
+```
+
+![This](/screenshots/img2.png)
+
 - Configure aws credentials for the IAM user on local server
 
 ### step 2
