@@ -98,3 +98,77 @@ aws budgets create-budget \
 
 - final results
   ![This](/screenshots/img1.png)
+
+## Creating a billing alarm via cli
+
+### step 1
+
+- Creating an SNS topic for the alarm
+
+```
+aws sns create-topic --name billing-alarm
+```
+
+```
+aws sns subscribe \
+    --topic-arn TopicARN \
+    --protocol email \
+    --notification-endpoint email@example.com
+```
+
+### step 2
+
+- Create json file alarm_config.json
+
+```
+{
+    "AlarmName": "DailyEstimatedCharges",
+    "AlarmDescription": "This alarm would be triggered if the daily estimated charges exceeds 100$",
+    "ActionsEnabled": true,
+    "AlarmActions": [
+        "ARN"
+    ],
+    "EvaluationPeriods": 1,
+    "DatapointsToAlarm": 1,
+    "Threshold": 1,
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "TreatMissingData": "breaching",
+    "Metrics": [{
+        "Id": "m1",
+        "MetricStat": {
+            "Metric": {
+                "Namespace": "AWS/Billing",
+                "MetricName": "EstimatedCharges",
+                "Dimensions": [{
+                    "Name": "Currency",
+                    "Value": "USD"
+                }]
+            },
+            "Period": 86400,
+            "Stat": "Maximum"
+        },
+        "ReturnData": false
+    },
+    {
+        "Id": "e1",
+        "Expression": "IF(RATE(m1)>0,RATE(m1)*86400,0)",
+        "Label": "DailyEstimatedCharges",
+        "ReturnData": true
+    }]
+  }
+```
+
+```
+
+```
+
+aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
+
+```
+
+```
+
+## Architectural diagram on lucid charts
+
+- link
+- https://lucid.app/lucidchart/688cc235-8f61-4e81-8d03-6f3b8ec2270f/edit?viewport_loc=-686%2C-144%2C3488%2C1544%2C0_0&invitationId=inv_72c01b82-6931-441c-9253-609cb4a8ecc3
