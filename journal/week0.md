@@ -75,4 +75,4 @@ aws budgets create-budget \
 ```
 
 - final results
-  ![This](screenshots/img1.png)
+  ![This](/screenshots/img1.png)
