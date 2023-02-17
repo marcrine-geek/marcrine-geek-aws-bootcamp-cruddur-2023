@@ -75,4 +75,4 @@ aws budgets create-budget \
 ```
 
 - final results
-  ![This is an image](/home/emmah/Downloads/MarcDownloads/marcrine-geek-aws-bootcamp-cruddur-2023/screenshots/Screenshot from 2023-02-16 23-44-42.png)
+  ![This](/home/emmah/Downloads/MarcDownloads/marcrine-geek-aws-bootcamp-cruddur-2023/screenshots/Screenshot from 2023-02-16 23-44-42.png)
