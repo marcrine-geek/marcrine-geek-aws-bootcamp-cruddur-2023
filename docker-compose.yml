@@ -12,7 +12,7 @@ services:
       - ./backend-flask:/backend-flask
   frontend-react-js:
     environment:
-      REACT_APP_BACKEND_URL: 'https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}'
+      - WATCHPACK_POLLING=true
     build: ./frontend-react-js
     image: marcrine/marcrine-geek-aws-bootcamp-cruddur-2023_frontend-react-js_1
     ports:
