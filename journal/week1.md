@@ -65,3 +65,35 @@ docker logs [CONTAINER ID] -f
 ```
 
 ![This](/screenshots/dockerlogs.png)
+
+## Containerize frontend
+
+### dockerfile
+
+```
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+CMD ["npm", "start"]
+```
+
+### Docker build
+
+```
+docker build . -t frontend-react-js
+```
+
+![This](/screenshots/dockerbuildF.png)
+
+### Docker run
+
+```
+docker run -p 3000:3000 frontend-react-js
+```
+
+![This](/screenshots/dockerrunF.png)
