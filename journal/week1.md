@@ -107,3 +107,17 @@ docker pull marcrine/backend-flask:latest
 ```
 docker pull marcrine/frontend-react-js:latest
 ```
+
+### Docker compose
+
+```
+docker-compose up
+```
+
+![This](/screenshots/dockercomposeup.png)
+
+```
+docker-compose ps
+```
+
+![This](/screenshots/dockercomposeps.png)
