@@ -97,3 +97,13 @@ docker run -p 3000:3000 frontend-react-js
 ```
 
 ![This](/screenshots/dockerrunF.png)
+
+### Docker pull
+
+```
+docker pull marcrine/backend-flask:latest
+```
+
+```
+docker pull marcrine/frontend-react-js:latest
+```
