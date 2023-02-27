@@ -121,3 +121,19 @@ docker-compose ps
 ```
 
 ![This](/screenshots/dockercomposeps.png)
+
+#### adding tags to docker-compose file
+
+```
+image: username/repo-name
+```
+
+![This](/screenshots/addtags.png)
+
+#### docker-compose build
+
+![This](/screenshots/dockercomposebuild.png)
+
+#### docker-compose push
+
+![This](/screenshots/dockerpush.png)
