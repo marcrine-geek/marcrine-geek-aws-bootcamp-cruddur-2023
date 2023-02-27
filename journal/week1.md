@@ -33,3 +33,35 @@ docker images
 ```
 
 ![This](/screenshots/dockerimages.png)
+
+## Run docker container
+
+```
+docker run -p 4567:4567  backend-flask
+```
+
+![This](/screenshots/dockerrun.png)
+
+### Check running containers
+
+```
+docker ps
+```
+
+![This](/screenshots/dockerps.png)
+
+## Test server
+
+```
+curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/json" -H "Content-Type: application/json"
+```
+
+![This](/screenshots/testserver.png)
+
+## Container logs
+
+```
+docker logs [CONTAINER ID] -f
+```
+
+![This](/screenshots/dockerlogs.png)
