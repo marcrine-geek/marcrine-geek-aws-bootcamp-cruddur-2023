@@ -1,5 +1,12 @@
+import logging
 import os
+from time import strftime
 
+# cloudwatch logs
+import watchtower
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+from dotenv import load_dotenv
 from flask import Flask, json, request
 from flask_cors import CORS, cross_origin
 # Honeycomb--------------------
@@ -21,13 +28,6 @@ from services.search_activities import *
 from services.show_activity import *
 from services.user_activities import *
 
-# Initialize tracing and an exporter that can send data to Honeycomb
-provider = TracerProvider()
-processor = BatchSpanProcessor(OTLPSpanExporter())
-provider.add_span_processor(processor)
-trace.set_tracer_provider(provider)
-tracer = trace.get_tracer(__name__)
-
 app = Flask(__name__)
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
@@ -40,6 +40,35 @@ cors = CORS(
 )
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
+
+# Initialize tracing and an exporter that can send data to Honeycomb
+provider = TracerProvider()
+processor = BatchSpanProcessor(OTLPSpanExporter())
+provider.add_span_processor(processor)
+trace.set_tracer_provider(provider)
+tracer = trace.get_tracer(__name__)
+
+
+# xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='Cruddur')
+XRayMiddleware(app, xray_recorder)
+
+# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("some message")
+
+
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr,
+                 request.method, request.scheme, request.full_path, response.status)
+    return response
 
 
 @app.route("/api/message_groups", methods=['GET'])
@@ -85,7 +114,10 @@ def data_create_message():
 @app.route('/api/activities/home', methods=['GET'])
 def data_home():
     print("==================")
+
     data = HomeActivities.run()
+    LOGGER.info('Hello Cloudwatch! from  /api/activities/home')
+
     return data, 200
 
 
