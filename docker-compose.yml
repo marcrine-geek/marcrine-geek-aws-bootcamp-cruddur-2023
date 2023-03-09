@@ -20,6 +20,7 @@ services:
       OTEL_SERVICE_NAME: '${HONEYCOMB_SERVICE_NAME}'
       AWS_XRAY_URL: '*http://127.0.0.1:4567*'
       AWS_XRAY_DAEMON_ADDRESS: 'xray-daemon:3000'
+      ROLLBAR_ACCESS_TOKEN: '${ROLLBAR_ACCESS_TOKEN}'
     build: ./backend-flask
     image: marcrine/marcrine-geek-aws-bootcamp-cruddur-2023_backend-flask_1
     ports:

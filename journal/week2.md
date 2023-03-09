@@ -1,9 +1,15 @@
 # Week 2 — Distributed Tracing
 
-Installing requirements
-![This](/screenshots/xray.png)
+### Installing requirements
 
-![This](/screenshots/watchtower.png)
+- xray sdk
+  ![This](/screenshots/xray.png)
 
-Honeycomb
-![This](/screenshots/honeycomb.png)
+- watchtower
+  ![This](/screenshots/watchtower.png)
+
+- Honeycomb
+  ![This](/screenshots/honeycomb.png)
+
+- rollbar
+  ![This](/screenshots/rollbar.png)

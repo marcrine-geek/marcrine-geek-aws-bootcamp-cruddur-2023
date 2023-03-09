@@ -2,14 +2,14 @@ import logging
 import os
 from time import strftime
 
-# cloudwatch logs
+import rollbar
+import rollbar.contrib.flask
 import watchtower
 from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 from dotenv import load_dotenv
-from flask import Flask, json, request
+from flask import Flask, got_request_exception, json, request
 from flask_cors import CORS, cross_origin
-# Honeycomb--------------------
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import \
     OTLPSpanExporter
@@ -54,13 +54,38 @@ xray_recorder.configure(service='Cruddur')
 XRayMiddleware(app, xray_recorder)
 
 # Configuring Logger to Use CloudWatch
-LOGGER = logging.getLogger(__name__)
-LOGGER.setLevel(logging.DEBUG)
-console_handler = logging.StreamHandler()
-cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
-LOGGER.addHandler(console_handler)
-LOGGER.addHandler(cw_handler)
-LOGGER.info("some message")
+# LOGGER = logging.getLogger(__name__)
+# LOGGER.setLevel(logging.DEBUG)
+# console_handler = logging.StreamHandler()
+# cw_handler = watchtower.CloudWatchLogHandler(log_group='Cruddur')
+# LOGGER.addHandler(console_handler)
+# LOGGER.addHandler(cw_handler)
+# LOGGER.info("some message")
+
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+
+
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
+
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
 
 
 @app.after_request
