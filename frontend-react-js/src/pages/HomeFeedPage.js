@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify';
 import React from 'react';
 import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
