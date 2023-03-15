@@ -23,3 +23,11 @@
 ## Create a preferred username and refresh to check handle
 
 ![This](/screenshots/userhandle.png)
+
+## Forgot password and recovery page
+
+![This](/screenshots/forgotp.png)
+
+## Password changed successfully
+
+![This](/screenshots/resetsuccess.png)
