@@ -35,3 +35,27 @@
 ## Populating tables in database
 
 ![This](/screenshots/poptable.png)
+
+## Setup script
+
+![This](/screenshots/setup.png)
+
+## Sessions
+
+![This](/screenshots/sessions.png)
+
+## Getting data to the frontend from postgres
+
+![This](/screenshots/gettingdata.png)
+
+## connecting to production database (RDS Instance)
+
+![This](/screenshots/proddb.png)
+
+## Connecting to production db using a bash script
+
+![This](/screenshots/conndbP.png)
+
+## Creating a new user in production db
+
+![This](/screenshots/createduser.png)
