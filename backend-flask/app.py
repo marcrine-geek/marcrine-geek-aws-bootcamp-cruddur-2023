@@ -28,13 +28,21 @@ from services.show_activity import *
 from services.user_activities import *
 
 app = Flask(__name__)
+
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
 origins = [frontend, backend]
+# cors = CORS(
+#     app,
+#     expose_headers="location,link",
+#     allow_headers="content-type,if-modified-since",
+#     methods="OPTIONS,GET,HEAD,POST"
+# )
 cors = CORS(
     app,
-    expose_headers="location,link",
-    allow_headers="content-type,if-modified-since",
+    resources={r"/api/*": {"origins": origins}},
+    headers=['Content-type', 'Authorizatiion'],
+    expose_headers='Authorization',
     methods="OPTIONS,GET,HEAD,POST"
 )
 FlaskInstrumentor().instrument_app(app)
@@ -137,7 +145,7 @@ def data_create_message():
 
 @app.route('/api/activities/home', methods=['GET'])
 def data_home():
-    print("==================")
+    print("================== home activities backend")
 
     data = HomeActivities.run()
     # LOGGER.info('Hello Cloudwatch! from  /api/activities/home')

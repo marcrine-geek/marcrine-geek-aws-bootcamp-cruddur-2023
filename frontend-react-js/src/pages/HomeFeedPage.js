@@ -1,11 +1,13 @@
-import { Auth } from 'aws-amplify';
 import React from 'react';
+import './HomeFeedPage.css';
+
+import { Auth } from 'aws-amplify';
+
 import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
 import DesktopNavigation from '../components/DesktopNavigation';
 import DesktopSidebar from '../components/DesktopSidebar';
 import ReplyForm from '../components/ReplyForm';
-import './HomeFeedPage.css';
 
 // [TODO] Authenication
 
@@ -21,10 +23,15 @@ export default function HomeFeedPage() {
 		try {
 			const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`;
 			const res = await fetch(backend_url, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+				},
 				method: 'GET',
+				mode: 'no-cors',
 			});
 			let resJson = await res.json();
 			if (res.status === 200) {
+				console.log('these are activities');
 				setActivities(resJson);
 			} else {
 				console.log(res);
@@ -34,7 +41,6 @@ export default function HomeFeedPage() {
 		}
 	};
 
-	// check if we are authenicated
 	const checkAuth = async () => {
 		Auth.currentAuthenticatedUser({
 			// Optional, By default is false.
