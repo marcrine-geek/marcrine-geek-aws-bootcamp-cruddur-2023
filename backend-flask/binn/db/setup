@@ -9,7 +9,8 @@ binn_path="$(realpath .)/binn"
 
 echo $binn_path
 
-source "$binn_path/db-drop"
-source "$binn_path/db-create"
-source "$binn_path/db-schema-load"
-source "$binn_path/db-seed"
+source "$binn_path/db/drop"
+source "$binn_path/db/create"
+source "$binn_path/db/schema-load"
+source "$binn_path/db/seed"
+source "$binn_path/db/update_cognito_user_ids"
