@@ -4,7 +4,9 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ConfirmationPage from './pages/ConfirmationPage';
 import HomeFeedPage from './pages/HomeFeedPage';
+import MessageGroupNewPage from './pages/MessageGroupNewPage';
 import MessageGroupPage from './pages/MessageGroupPage';
+
 import MessageGroupsPage from './pages/MessageGroupsPage';
 import NotificationsFeedPage from './pages/NotificationsFeedPage';
 import RecoverPage from './pages/RecoverPage';
@@ -47,7 +49,11 @@ const router = createBrowserRouter([
 		element: <MessageGroupsPage />,
 	},
 	{
-		path: '/messages/@:handle',
+		path: '/messages/new/:handle',
+		element: <MessageGroupNewPage />,
+	},
+	{
+		path: '/messages/:message_group_uuid',
 		element: <MessageGroupPage />,
 	},
 	{

@@ -29,3 +29,15 @@
 ### list conversations
 
 ![This](/screenshots/dynamodb/listconv.png)
+
+### listing users in dynamodb
+
+![This](/screenshots/dynamodb/listusers.png)
+
+### updating cognito users ids
+
+![This](/screenshots/dynamodb/updatecognusr.png)
+
+### updated users ids
+
+![This](/screenshots/dynamodb/updatecognito.png)
