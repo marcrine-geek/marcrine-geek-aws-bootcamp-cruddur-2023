@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import './MessageGroupPage.css';
+import checkAuth from '../lib/CheckAuth';
+
 
 import DesktopNavigation from '../components/DesktopNavigation';
 import MessagesFeed from '../components/MessageFeed';

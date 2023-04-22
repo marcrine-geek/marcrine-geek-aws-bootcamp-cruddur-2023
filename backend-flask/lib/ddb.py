@@ -121,17 +121,17 @@ class Ddb:
             'created_at': created_at
         }
 
-        try:
-            # Begin the transaction
-            with dynamodb_resource.meta.client.transact_write_items(RequestItems=items) as transaction:
-                print('Transaction started.')
-                # Commit the transaction
-                response = transaction.commit()
-                print('Transaction committed.')
-                print(response)
-        except ClientError as e:
-            # Handle any errors
-            print(e)
+        # try:
+        #     # Begin the transaction
+        #     with dynamodb_resource.meta.client.transact_write_items(RequestItems=items) as transaction:
+        #         print('Transaction started.')
+        #         # Commit the transaction
+        #         response = transaction.commit()
+        #         print('Transaction committed.')
+        #         print(response)
+        # except ClientError as e:
+        #     # Handle any errors
+        #     print(e)
 
     def create_message(client, message_group_uuid, message, my_user_uuid, my_user_display_name, my_user_handle):
         now = datetime.now(timezone.utc).astimezone().isoformat()
@@ -215,13 +215,13 @@ class Ddb:
             ]
         }
 
-        try:
-        print('== create_message_group.try')
-        # Begin the transaction
-        response = client.batch_write_item(RequestItems=items)
-        return {
-            'message_group_uuid': message_group_uuid
-        }
-        except botocore.exceptions.ClientError as e:
-        print('== create_message_group.error')
-        print(e)
+        # try:
+        # print('== create_message_group.try')
+        # # Begin the transaction
+        # response = client.batch_write_item(RequestItems=items)
+        # return {
+        #     'message_group_uuid': message_group_uuid
+        # }
+        # except botocore.exceptions.ClientError as e:
+        # print('== create_message_group.error')
+        # print(e)

@@ -110,6 +110,9 @@ cognito_jwt_token = CognitoJwtToken(
 #                  request.method, request.scheme, request.full_path, response.status)
 #     return response
 
+@app.route('/api/health-check')
+def health_check():
+  return {'success': True}, 200
 
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
