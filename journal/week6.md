@@ -24,3 +24,13 @@
 ![This](/screenshots/containers/backendrepo.png)
 
 ![This](/screenshots/containers/backend.png)
+
+## Creating system manager parameter store
+
+![This](/screenshots/containers/params.png)
+
+## Creating roles and policies
+
+![This](/screenshots/containers/policy.png)
+
+![This](/screenshots/containers/role.png)
