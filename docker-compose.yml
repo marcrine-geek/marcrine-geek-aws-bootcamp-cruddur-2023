@@ -13,8 +13,8 @@ services:
 
   backend-flask:
     environment:
-      # CONNECTION_URL: 'postgresql://postgres:marcrine@cruddur.chkfhb6ik0ro.us-east-1.rds.amazonaws.com:5432/cruddur'
-      CONNECTION_URL: 'postgresql://postgres:password@db:5432/cruddur'
+      CONNECTION_URL: 'postgresql://postgres:marcrine@database-2.chkfhb6ik0ro.us-east-1.rds.amazonaws.com:5432/cruddur'
+      #CONNECTION_URL: 'postgresql://postgres:password@db:5432/cruddur'
       FRONTEND_URL: 'https://127.0.0.1:3000/'
       BACKEND_URL: 'http://127.0.0.1:4567/'
       OTEL_EXPORTER_OTLP_ENDPOINT: 'https://api.honeycomb.io'
@@ -24,7 +24,6 @@ services:
       AWS_XRAY_DAEMON_ADDRESS: 'xray-daemon:3000'
       ROLLBAR_ACCESS_TOKEN: '${ROLLBAR_ACCESS_TOKEN}'
     build: ./backend-flask
-    image: marcrine/marcrine-geek-aws-bootcamp-cruddur-2023_backend-flask_1
     ports:
       - '4567:4567'
     volumes:
@@ -35,7 +34,6 @@ services:
       REACT_APP_AWS_USER_POOLS_ID: 'us-east-1_k6DBnuHDQ'
       REACT_APP_CLIENT_ID: '2t98c0nk5hufp4e76do8pj2e06'
     build: ./frontend-react-js
-    image: marcrine/marcrine-geek-aws-bootcamp-cruddur-2023_frontend-react-js_1
     ports:
       - '3000:3000'
     volumes:

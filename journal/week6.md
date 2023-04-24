@@ -207,8 +207,6 @@ aws ecs register-task-definition --cli-input-json file://aws/task-defintions/bac
 
 ![This](/screenshots/containers/taskdef.png)
 
-![This](/screenshots/containers/tasksover.png)
-
 ![This](/screenshots/containers/overview.png)
 
 ![This](/screenshots/containers/metrics.png)
@@ -233,3 +231,21 @@ curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64
 ```
 sudo dpkg -i session-manager-plugin.deb
 ```
+
+#### Testing the backend container and the load balancer
+
+- Check the health of the tasks, it should be healthy
+
+![This](/screenshots/containers/taskhealth.png)
+
+- Check the tasks logs
+
+![This](/screenshots/containers/backlogs.png)
+
+- Check the target groups health
+
+![This](/screenshots/containers/tghealth.png)
+
+- Test the load balancer by copying the DNS on the browser
+
+![This](/screenshots/containers/dnstest.png)

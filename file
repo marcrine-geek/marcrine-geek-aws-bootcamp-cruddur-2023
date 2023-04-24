@@ -2,3 +2,14 @@ aws budgets create-budget \
     --account-id $ACCOUNT_ID \
     --budget file://aws/json/budget.json \
     --notifications-with-subscribers file://aws/json/notifications-with-subscribers.json
+
+
+docker build \
+--build-arg REACT_APP_BACKEND_URL="http://cruddur-alb-1620832539.us-east-1.elb.amazonaws.com:4567" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="us-east-1" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="us-east-1" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="us-east-1_k6DBnuHDQ" \
+--build-arg REACT_APP_CLIENT_ID="2t98c0nk5hufp4e76do8pj2e06" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
