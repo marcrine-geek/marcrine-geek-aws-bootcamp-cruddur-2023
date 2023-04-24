@@ -255,6 +255,57 @@ sudo dpkg -i session-manager-plugin.deb
 
 ### steps
 
-#### Creating the frontend repository
+- Creating the frontend repository
+
+```
+aws ecr create-repository \
+  --repository-name frontend-react-js \
+  --image-tag-mutability MUTABLE
+```
 
 ![This](/screenshots/containers/frontrepo.png)
+
+- Build the Dockerfile.prod
+```
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://4567-$GITPOD_WORKSPACE_ID.$GITPOD_WORKSPACE_CLUSTER_HOST" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="ca-central-1_CQ4wDfnwc" \
+--build-arg REACT_APP_CLIENT_ID="5b6ro31g97urk767adrbrdj1g5" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
+```
+
+- Tag the newly built frontend image
+```
+docker tag frontend-react-js:latest 81xxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/frontend-react-js:latest
+```
+
+- Push the docker image to ECR
+```
+docker push 81xxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/frontend-react-js:latest
+```
+
+![This](/screenshots/containers/frontimg.png)
+
+- Create a task definition
+![This](/screenshots/containers/taskdefF.png)
+
+- Create a service in the ECS cluster
+![This](/screenshots/containers/serviceF.png)
+
+- Check the health of tasks and target groups
+
+![This](/screenshots/containers/contF.png)
+
+![This](/screenshots/containers/serviceH.png)
+
+![This](/screenshots/containers/fronttgh.png)
+
+![This](/screenshots/containers/fronttaskhealth.png)
+
+- lastly test the load balancer
+
+![This](/screenshots/containers/testdnsfront.png)
