@@ -1,0 +1,10 @@
+aws ecs execute-command \
+    --cluster cruddur \
+    --task 358408856699414c8c6540a821b90cab \
+    --container backend-flask \
+    --command "/bin/bash" \
+    --interactive 
+    
+
+
+

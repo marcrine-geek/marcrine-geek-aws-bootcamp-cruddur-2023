@@ -2,6 +2,6 @@
 
 echo "works"
 
-DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$PROD_CONNECTION_URL")
 
 psql $DB_CONNECTION_URL -c "create database cruddur;"
