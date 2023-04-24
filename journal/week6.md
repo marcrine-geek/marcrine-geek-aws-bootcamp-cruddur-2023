@@ -249,3 +249,12 @@ sudo dpkg -i session-manager-plugin.deb
 - Test the load balancer by copying the DNS on the browser
 
 ![This](/screenshots/containers/dnstest.png)
+
+
+## Deploying the frontend 
+
+### steps
+
+#### Creating the frontend repository
+
+![This](/screenshots/containers/frontrepo.png)

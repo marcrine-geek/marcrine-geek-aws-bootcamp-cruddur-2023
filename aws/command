@@ -6,5 +6,10 @@ aws ecs execute-command \
     --interactive 
     
 
-
+aws ecs execute-command \
+    --cluster cruddur \
+    --task 55825575df67422380b85f65aa0322a3 \
+    --container frontend-react-js \
+    --command "/bin/sh" \
+    --interactive 
 
