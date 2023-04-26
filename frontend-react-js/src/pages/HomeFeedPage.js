@@ -6,7 +6,7 @@ import ActivityForm from '../components/ActivityForm';
 import DesktopNavigation from '../components/DesktopNavigation';
 import DesktopSidebar from '../components/DesktopSidebar';
 import ReplyForm from '../components/ReplyForm';
-import checkAuth from '../lib/CheckAuth';
+import {checkAuth, getAccessToken} from '../lib/CheckAuth';
 
 export default function HomeFeedPage() {
 	const [activities, setActivities] = React.useState([]);
@@ -18,25 +18,25 @@ export default function HomeFeedPage() {
 
 	const loadData = async () => {
 		try {
-			const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`;
-			const res = await fetch(backend_url, {
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-				},
-				method: 'GET',
-				mode: 'no-cors',
-			});
-			let resJson = await res.json();
-			if (res.status === 200) {
-				console.log('these are activities');
-				setActivities(resJson);
-			} else {
-				console.log(res);
-			}
+		  const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`
+		  await getAccessToken()
+		  const access_token = localStorage.getItem("access_token")
+		  const res = await fetch(backend_url, {
+			headers: {
+			  Authorization: `Bearer ${access_token}`
+			},
+			method: "GET"
+		  });
+		  let resJson = await res.json();
+		  if (res.status === 200) {
+			setActivities(resJson)
+		  } else {
+			console.log(res)
+		  }
 		} catch (err) {
-			console.log(err);
+		  console.log(err);
 		}
-	};
+	  };
 
 	React.useEffect(() => {
 		//prevents double call

@@ -2,6 +2,8 @@ import process from 'process';
 import React from 'react';
 import { json, useParams } from 'react-router-dom';
 import './MessageForm.css';
+import {getAccessToken} from '../lib/CheckAuth';
+
 
 export default function ActivityForm(props) {
 	const [count, setCount] = React.useState(0);
@@ -13,10 +15,11 @@ export default function ActivityForm(props) {
 	if (1024 - count < 0) {
 		classes.push('err');
 	}
-
+	
 	const onsubmit = async (event) => {
 		event.preventDefault();
 		try {
+			
 			const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/messages`;
 			console.log('onsubmit payload', message);
 			json = { message: message };
@@ -25,11 +28,12 @@ export default function ActivityForm(props) {
 			} else {
 				json.message_group_uuid = params.message_group_uuid;
 			}
-
+			await getAccessToken()
+			const access_token = localStorage.getItem("access_token")
 			const res = await fetch(backend_url, {
 				method: 'POST',
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+					Authorization: `Bearer ${access_token}`,
 					Accept: 'application/json',
 				},
 				body: JSON.stringify(json),
